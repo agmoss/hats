@@ -1,7 +1,7 @@
 {
-  "name": "nest-typescript-starter",
-  "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "name": "hats",
+  "version": "0.0.1",
+  "description": "API performance testing",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -16,7 +16,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "echo 'No e2e tests implemented yet.'"
+    "test:e2e": "echo 'No e2e tests implemented yet.'",
+    "generate-typings": "ts-node src/generate-typings"
   },
   "dependencies": {
     "@nestjs/common": "7.6.4",

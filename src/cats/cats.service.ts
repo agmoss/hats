@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Cat } from '../graphql.schema';
 
 @Injectable()
@@ -16,6 +16,12 @@ export class CatsService {
   }
 
   findOneById(id: number): Cat {
-    return this.cats.find(cat => cat.id === id);
+    const found = this.cats.find(cat => cat.id === id);
+
+    if(!found){
+      throw new NotFoundException("Cat not found")
+    }
+
+    return found
   }
 }
