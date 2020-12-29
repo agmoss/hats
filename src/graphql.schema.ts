@@ -1,3 +1,4 @@
+
 /** ------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
  * -------------------------------------------------------
@@ -10,8 +11,15 @@ export class CreateCatInput {
     age?: number;
 }
 
+export class PageParams {
+    limit: number;
+    offset: number;
+}
+
 export abstract class IQuery {
     abstract getCats(): Cat[] | Promise<Cat[]>;
+
+    abstract pages(params?: PageParams): CatConnection | Promise<CatConnection>;
 
     abstract cat(id: string): Cat | Promise<Cat>;
 }
@@ -28,4 +36,9 @@ export class Cat {
     id?: number;
     name?: string;
     age?: number;
+}
+
+export class CatConnection {
+    totalCount: number;
+    cats?: Cat[];
 }

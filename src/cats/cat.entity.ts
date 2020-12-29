@@ -5,6 +5,8 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
     underscored: true,
     paranoid: true,
     deletedAt: "deleted_at",
+    createdAt: "created_at",
+    updatedAt: "updated_at"
 })
 export class CatEntity extends Model<CatEntity> {
     @Column({

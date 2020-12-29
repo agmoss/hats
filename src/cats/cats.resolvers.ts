@@ -1,7 +1,7 @@
 import { ParseIntPipe, UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
 import { PubSub } from "graphql-subscriptions";
-import { Cat } from "../graphql.schema";
+import { Cat, CatConnection, PageParams } from "../graphql.schema";
 import { CatsGuard } from "./cats.guard";
 import { CatsService } from "./cats.service";
 import { CreateCatDto } from "./dto/create-cat.dto";
@@ -14,9 +14,16 @@ export class CatsResolvers {
 
     @Query()
     @UseGuards(CatsGuard)
-    async getCats() {
+    async getCats(): Promise<Cat[]> {
         return this.catsService.findAll();
     }
+
+    @Query()
+    @UseGuards(CatsGuard)
+    async pages(@Args("params") params: PageParams): Promise<CatConnection> {
+        return this.catsService.pages(params)
+    }
+
 
     @Query("cat")
     async findOneById(

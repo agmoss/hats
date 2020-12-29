@@ -1,5 +1,6 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { Cat } from "../graphql.schema";
+import { Sequelize } from "sequelize";
+import { Cat, PageParams, CatConnection } from "../graphql.schema";
 import { CatEntity } from "./cat.entity";
 
 @Injectable()
@@ -26,6 +27,27 @@ export class CatsService {
             };
         });
         return gqlCats;
+    }
+
+
+    async pages(params: PageParams): Promise<CatConnection> {
+
+
+        const page = await this.catsRepository.findAndCountAll({
+            order: Sequelize.literal("id DESC"),
+            limit: params.limit,
+            offset: params.offset
+        })
+
+        const gqlCats: Cat[] = page.rows.map((c) => {
+            return {
+                name: c.name,
+                id: c.id,
+                age: c.age,
+            };
+        });
+        
+        return { totalCount: page.count, cats: gqlCats };
     }
 
     findOneById(id: number): Cat {
