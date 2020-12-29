@@ -1,0 +1,34 @@
+type Query {
+    getCats: [Cat]
+    pages(params: PageParams): CatConnection!
+    cat(id: ID!): Cat
+}
+
+type Mutation {
+    createCat(createCatInput: CreateCatInput): Cat
+}
+
+type Subscription {
+    catCreated: Cat
+}
+
+type Cat {
+    id: Int
+    name: String
+    age: Int
+}
+
+input CreateCatInput {
+    name: String
+    age: Int
+}
+
+input PageParams {
+    limit: Int!
+    offset: Int!
+}
+
+type CatConnection {
+    totalCount: Int!
+    cats: [Cat]
+}
