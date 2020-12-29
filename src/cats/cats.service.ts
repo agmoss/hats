@@ -32,11 +32,11 @@ export class CatsService {
 
     async pages(params: PageParams): Promise<CatConnection> {
 
-
         const page = await this.catsRepository.findAndCountAll({
             order: Sequelize.literal("id DESC"),
             limit: params.limit,
-            offset: params.offset
+            offset: params.offset,
+            logging: false
         })
 
         const gqlCats: Cat[] = page.rows.map((c) => {
@@ -46,7 +46,7 @@ export class CatsService {
                 age: c.age,
             };
         });
-        
+
         return { totalCount: page.count, cats: gqlCats };
     }
 

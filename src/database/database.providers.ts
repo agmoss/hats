@@ -13,6 +13,7 @@ export const databaseProviders = [
                     min: 0,
                     acquire: 30000,
                     idle: 10000,
+                    evict: 10000,
                 },
                 host: process.env.DB_HOST,
                 port: (process.env.DB_PORT as unknown) as number,
@@ -21,6 +22,7 @@ export const databaseProviders = [
                 database: process.env.DB_DATABASE,
                 native: false,
                 logging: false,
+                ssl: true,
             });
             sequelize.addModels([CatEntity]);
             await sequelize.sync();

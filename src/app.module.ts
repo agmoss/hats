@@ -7,12 +7,12 @@ import { DatabaseModule } from './database/database.module';
     imports: [
         GraphQLModule.forRoot({
             path: "/api",
-            installSubscriptionHandlers: true,
-            context: ({ req }) => ({ req }),
-            debug: true,
-            playground: true,
-            typePaths: ["./**/*.graphql"],
             useGlobalPrefix: true,
+            installSubscriptionHandlers: false,
+            context: ({ req }) => ({ req }),
+            debug: false,
+            playground: false,
+            typePaths: ["./**/*.graphql"],
         }),
         DatabaseModule,
         CatsModule,
