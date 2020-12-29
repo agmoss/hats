@@ -21,7 +21,10 @@ export class CatsResolvers {
     @Query()
     @UseGuards(CatsGuard)
     async pages(@Args("params") params: PageParams): Promise<CatConnection> {
-        return this.catsService.pages(params)
+        console.time('page');
+        const toReturn = await this.catsService.pages(params);
+        console.timeEnd('page');
+        return toReturn
     }
 
 

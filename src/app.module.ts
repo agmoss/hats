@@ -8,11 +8,16 @@ import { DatabaseModule } from './database/database.module';
         GraphQLModule.forRoot({
             path: "/api",
             useGlobalPrefix: true,
-            installSubscriptionHandlers: false,
+            installSubscriptionHandlers: true,
             context: ({ req }) => ({ req }),
             debug: false,
             playground: false,
             typePaths: ["./**/*.graphql"],
+            resolverValidationOptions: {
+				requireResolversForResolveType: false
+            },
+            introspection: false,
+            bodyParserConfig: { limit: '50mb' },
         }),
         DatabaseModule,
         CatsModule,
