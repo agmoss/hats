@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
 import { CatsModule } from "./cats/cats.module";
+import { DatabaseModule } from './database/database.module';
 
 @Module({
     imports: [
-        CatsModule,
         GraphQLModule.forRoot({
             path: "/api",
             installSubscriptionHandlers: true,
@@ -14,6 +14,8 @@ import { CatsModule } from "./cats/cats.module";
             typePaths: ["./**/*.graphql"],
             useGlobalPrefix: true,
         }),
+        DatabaseModule,
+        CatsModule,
     ],
 })
 export class AppModule {}
