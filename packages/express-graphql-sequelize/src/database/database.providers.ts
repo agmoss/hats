@@ -10,9 +10,9 @@ export const databaseProviders = [
                 pool: {
                     max: 5,
                     min: 0,
-                    acquire: 0,
-                    idle: 0,
-                    evict: 0,
+                    acquire: 30000,
+                    idle: 30000,
+                    evict: 30000,
                 },
                 host: process.env.DB_HOST,
                 port: (process.env.DB_PORT as unknown) as number,

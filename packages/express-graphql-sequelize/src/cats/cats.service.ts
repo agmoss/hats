@@ -18,7 +18,9 @@ export class CatsService {
     }
 
     async findAll(): Promise<Cat[]> {
-        const allCats = await this.catsRepository.findAll();
+        const allCats = await this.catsRepository.findAll({
+            limit: 20
+        });
         const gqlCats: Cat[] = allCats.map((c) => {
             return {
                 name: c.name,

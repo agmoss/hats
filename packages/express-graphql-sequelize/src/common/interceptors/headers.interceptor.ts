@@ -20,9 +20,7 @@ export class TransformHeadersInterceptor implements NestInterceptor {
 
                 let req = ctx.getContext().req
 
-                req.res.header('Connection', 'pretty secure');
-                req.res.header('Expect-CT', "-");
-                req.res.header('Vary',"-")
+                req.res.header('Keep-Alive',"timeout=60")
                 return data;
             }),
         );
