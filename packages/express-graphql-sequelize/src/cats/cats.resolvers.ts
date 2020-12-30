@@ -1,16 +1,17 @@
-import { ParseIntPipe, UseGuards } from "@nestjs/common";
+import { ParseIntPipe, UseGuards, UseInterceptors } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
 import { PubSub } from "graphql-subscriptions";
+import { TransformHeadersInterceptor } from "src/common/interceptors/headers.interceptor";
 import { Cat, CatConnection, PageParams } from "../graphql.schema";
 import { CatsGuard } from "./cats.guard";
 import { CatsService } from "./cats.service";
-import { CreateCatDto } from "./dto/create-cat.dto";
+
 
 const pubSub = new PubSub();
 
 @Resolver("Cat")
 export class CatsResolvers {
-    constructor(private readonly catsService: CatsService) {}
+    constructor(private readonly catsService: CatsService) { }
 
     @Query()
     @UseGuards(CatsGuard)
@@ -18,12 +19,14 @@ export class CatsResolvers {
         return this.catsService.findAll();
     }
 
+    @UseInterceptors(TransformHeadersInterceptor)
     @Query()
     @UseGuards(CatsGuard)
     async pages(@Args("params") params: PageParams): Promise<CatConnection> {
         console.time('page');
         const toReturn = await this.catsService.pages(params);
         console.timeEnd('page');
+
         return toReturn
     }
 
@@ -37,7 +40,7 @@ export class CatsResolvers {
     }
 
     @Mutation("createCat")
-    async create(@Args("createCatInput") args: CreateCatDto): Promise<Cat> {
+    async create(@Args("createCatInput") args: Cat): Promise<Cat> {
         const createdCat = await this.catsService.create(args);
         pubSub.publish("catCreated", { catCreated: createdCat });
         return createdCat;

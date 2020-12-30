@@ -1,4 +1,3 @@
-
 import { Sequelize } from 'sequelize-typescript';
 import { CatEntity } from '../cats/cat.entity';
 
@@ -11,9 +10,9 @@ export const databaseProviders = [
                 pool: {
                     max: 5,
                     min: 0,
-                    acquire: 30000,
-                    idle: 10000,
-                    evict: 10000,
+                    acquire: 0,
+                    idle: 0,
+                    evict: 0,
                 },
                 host: process.env.DB_HOST,
                 port: (process.env.DB_PORT as unknown) as number,

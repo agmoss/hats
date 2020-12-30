@@ -6,39 +6,37 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export class CreateCatInput {
+export interface CreateCatInput {
     name?: string;
     age?: number;
 }
 
-export class PageParams {
+export interface PageParams {
     limit: number;
     offset: number;
 }
 
-export abstract class IQuery {
-    abstract getCats(): Cat[] | Promise<Cat[]>;
-
-    abstract pages(params?: PageParams): CatConnection | Promise<CatConnection>;
-
-    abstract cat(id: string): Cat | Promise<Cat>;
+export interface IQuery {
+    getCats(): Cat[] | Promise<Cat[]>;
+    pages(params?: PageParams): CatConnection | Promise<CatConnection>;
+    cat(id: string): Cat | Promise<Cat>;
 }
 
-export abstract class IMutation {
-    abstract createCat(createCatInput?: CreateCatInput): Cat | Promise<Cat>;
+export interface IMutation {
+    createCat(createCatInput?: CreateCatInput): Cat | Promise<Cat>;
 }
 
-export abstract class ISubscription {
-    abstract catCreated(): Cat | Promise<Cat>;
+export interface ISubscription {
+    catCreated(): Cat | Promise<Cat>;
 }
 
-export class Cat {
+export interface Cat {
     id?: number;
     name?: string;
     age?: number;
 }
 
-export class CatConnection {
+export interface CatConnection {
     totalCount: number;
     cats?: Cat[];
 }

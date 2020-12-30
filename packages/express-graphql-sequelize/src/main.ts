@@ -9,6 +9,9 @@ import * as rateLimit from 'express-rate-limit'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
+var responseTime = require('response-time')
+var StatsD = require('node-statsd')
+
 import { AppModule } from "./app.module";
 import { RATE_LIMIT_MAX } from "./environments";
 import { TimeoutInterceptor } from "./common/interceptors/timeout.interceptor";
@@ -22,6 +25,7 @@ async function bootstrap() {
     app.use(helmet())
 
     app.use(bodyParser.json({ limit: '50mb' }))
+    
     app.use(
         bodyParser.urlencoded({
             limit: '50mb',

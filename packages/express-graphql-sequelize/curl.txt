@@ -1,23 +1,14 @@
-# `hats`
-
-> API performance testing
-
-## Response Time
-
-```bash
 # Simple request
 curl \
 -X POST \
 -H "Content-Type: application/json" \
 --data '{ "variables": {"params":{"limit":20, "offset":0}},  "query": "query pages($params:PageParams!){pages(params:$params){totalCount cats {age name id}} }" }' \
 http://localhost:4000/api/graphql
-```
 
-```bash
+
 # With metrics
 curl -w "@curl-format.txt" -o /dev/null -s \
 -X POST \
 -H "Content-Type: application/json" \
 --data '{ "variables": {"params":{"limit":20, "offset":0}},  "query": "query pages($params:PageParams!){pages(params:$params){totalCount cats {age name id}} }" }' \
 http://localhost:4000/api/graphql
-```
